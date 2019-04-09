@@ -2,7 +2,22 @@ var express = require("express");
 var app = express();
 var PORT = 8080;
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set("view engine", "ejs");  //add ejs
+
+function generateRandomString() {                   //function allows the app to make a random user id
+    var text = "";
+    var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 7; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+};
+console.log(generateRandomString())
 
 //creates a database of urls 
 var urlDatabase = {
@@ -29,7 +44,14 @@ app.get("/urls", (req, res) => {
     let templateVars = { urls: urlDatabase };
     res.render("urls_index", templateVars);
 });
+app.get("/urls/new", (req, res) => {
+    res.render("urls_new");
+});
 app.get("/urls/:shortURL", (req, res) => {
     let templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
     res.render("urls_show", templateVars);
+});
+app.post("/urls", (req, res) => {
+    console.log(req.body);  // Log the POST request body to the console
+    res.send("Ok");         // Respond with 'Ok' (we will replace this)
 });
