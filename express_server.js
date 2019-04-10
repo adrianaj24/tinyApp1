@@ -17,7 +17,6 @@ function generateRandomString() {                   //function allows the app to
 
     return text;
 };
-console.log(generateRandomString())
 
 //creates a database of urls 
 var urlDatabase = {
@@ -52,6 +51,13 @@ app.get("/urls/:shortURL", (req, res) => {
     res.render("urls_show", templateVars);
 });
 app.post("/urls", (req, res) => {
-    console.log(req.body);  // Log the POST request body to the console
-    res.send("Ok");         // Respond with 'Ok' (we will replace this)
+    var shortUrl = generateRandomString()
+    var longURL = req.body.longURL
+    urlDatabase[shortUrl] = longURL
+    console.log(urlDatabase);                  // Log the POST request body to the console
+    res.redirect(`urls/${shortUrl}`);         // Respond with 'Ok' (we will replace this)
+});
+app.get("/u/:shortURL", (req, res) => {
+    const longURL = urlDatabase[req.params.shortURL]
+    res.redirect(longURL);
 });
