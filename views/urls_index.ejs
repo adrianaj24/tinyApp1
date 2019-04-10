@@ -18,7 +18,7 @@
             <ul>
             <% for (url in urls) { %>
                 <li>
-                <form method="POST" action=<%= `/urls/${url}/delete` %>>
+                <form class="form-inline" method="POST" action=<%= `/urls/${url}/delete` %> >
                     <input type="submit" value="Delete" class="btn btn-primary" />
             <%= url + urls[url] %>
             </form>
