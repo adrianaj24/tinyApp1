@@ -21,11 +21,32 @@ function generateRandomString() {                   //function allows the app to
     return text;
 };
 
+function lookUpUser(email) {
+    for (userID in users) {
+        if (email === users[userID].email)
+        return userID 
+    }
+    return null
+}
+
 //creates a database of urls 
 var urlDatabase = {
     "b2xVn2": "http://www.lighthouselabs.ca",
     "9sm5xK": "http://www.google.com"
 };
+
+const users = {
+    "userRandomID": {
+        id: "userRandomID",
+        email: "user@example.com",
+        password: "purple-monkey-dinosaur"
+    },
+    "user2RandomID": {
+        id: "user2RandomID",
+        email: "user2@example.com",
+        password: "dishwasher-funk"
+    }
+}
 
 app.get("/", (req, res) => {
     res.send("Hello!");
@@ -77,6 +98,30 @@ app.post("/urls/:shortURL", (req, res) => {                 //post updates long 
 app.post("/login", (req, res) => {
     res.cookie("username", req.body.username)
     res.redirect("/urls");
+});
+app.post("/register", (req, res) => {
+    const userId = generateRandomString()
+    const email = req.body.email
+    const password = req.body.password
+
+    if (!email || lookUpUser(email)) {
+        console.log("already registered")
+        res.status(400).send()
+    } else {
+
+        users[userId] = {
+            id: userId,
+            email: email,
+            password: password,
+        }
+    
+        console.log(users[userId]);
+        res.cookie("username", email)
+        res.redirect("/urls");
+    }
+});
+app.get("/register", (req, res) => {
+    res.render("registration");
 });
 app.post("/logout", (req, res) => {                   //allows users to logout
     res.clearCookie('username');
