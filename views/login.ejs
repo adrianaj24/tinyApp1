@@ -9,22 +9,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-
 <body>
     <h1>
         TINY APP
     </h1>
     <a href="/login">Login</a> | <a href="/register">Register</a>
-
-    <br>
-    <p>Create Account</p>
-    <form action="/register" method="POST">
+    <p>Login</p>
+    <% if(user){ %>
+    <p> Logged in as: <%=user.email%> </p>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Sign Out" class="btn btn-primary" />
+    </form>
+    <% } else { %>
+    <form action="/login" method="POST">
         <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
-        <button type="submit" class="btn btn-success">Register</button>
+        <button type="submit" class="btn btn-success">Login</button>
     </form>
+    <% } %>
+
 
 
 </body>
-
 </html>
