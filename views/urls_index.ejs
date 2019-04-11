@@ -13,22 +13,20 @@
 
     <body style="font-size:20px; padding:50px;">
         <% include partials/_header %>
-        <a href="">Create New TinyURL</a>
+        <a href="/urls/new">Create New TinyURL</a>
 
             <ul>
             <% for (url in urls) { %>
                 <li>
                 <form class="form-inline" method="POST" action=<%= `/urls/${url}/delete` %> >
                     
-            <%= url %> - <%= urls[url] %>
+            <%= url %> - <%= urls[url].longURL %>
             <input type="submit" value="Delete" class="btn btn-primary" style="margin: 1em">
             </form>
             </li>
             <% }; %>
             </ul>
-        <!-- <form method="POST" action=<%= `/urls/${url}/delete` %> >
-        <input type="submit" value="Delete" class="btn btn-primary"/>
-        </form> -->
+    
     </body>
 
     </html>
