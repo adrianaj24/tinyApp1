@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymof">
     <title>TinyApp</title>
 </head>
 
@@ -16,7 +16,7 @@
     <a href="/urls/new">Create New TinyURL</a>
         
             <form method="POST" action=<%=`/urls/${shortURL}`%>>
-                <input value=<%=`${longURL}`%> class="form-control" type="text" name="longURL" placeholder="http://" style="width: 300px; margin: 1em">
+                <input value=<%=`${longURL}`%> class="form-control" type="text" name="longURL" placeholder="http://" style="width: 300px; margin: 1em"/>
                 <input type="submit" value="Update" class="btn btn-primary" />
             </form>
     <ul>

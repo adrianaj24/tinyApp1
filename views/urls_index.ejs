@@ -18,13 +18,16 @@
             <ul>
             <% for (url in urls) { %>
                 <li>
+
                 <form class="form-inline" method="POST" action=<%= `/urls/${url}/delete` %> >
+                    
                     
             <%= url %> - <%= urls[url].longURL %>
             <input type="submit" value="Delete" class="btn btn-primary" style="margin: 1em">
             </form>
+            <a href="/urls/<%= url %>" >Edit</a>
             </li>
-            <% }; %>
+            <% } %>
             </ul>
     
     </body>
