@@ -26,7 +26,7 @@ function generateRandomString() {                   //function allows the app to
     return text;
 };
 
-function lookUpUser(email) {
+function lookUpUser(email) {                    //function checks if user is in database
     for (userID in users) {
         if (email === users[userID].email)
         return userID 
@@ -34,12 +34,12 @@ function lookUpUser(email) {
     return null
 }
 
-function createHashedPassword(password) {
+function createHashedPassword(password) {         //function to check password after is hashed
     const hashedPassword = bcrypt.hashSync(password, 10);
     return hashedPassword
 }
 
-function urlsForUser(user_id) {
+function urlsForUser(user_id) {                 //function checks for urls to individual user
     let urls = {};
     for (shortURL in urlDatabase) {
         if (user_id === urlDatabase[shortURL].userID) {
@@ -49,14 +49,12 @@ function urlsForUser(user_id) {
         return urls
 }
 
-
-//creates a database of urls 
-const urlDatabase = {
+const urlDatabase = {                               //creates a database of urls with userID
     b6UTxQ: { longURL: "https://www.tsn.ca", userID: "userRandomID" },
     i3BoGr: { longURL: "https://www.google.ca", userID: "aJ48lW" }
 };
 
-const users = {
+const users = {                                    //users database with hardcoded users 
     "userRandomID": {
         id: "userRandomID",
         email: "user@example.com",
@@ -83,18 +81,14 @@ app.get("/urls.json", (req, res) => {
 app.get("/hello", (req, res) => {
     res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
-//route handler for urls
+
 app.get("/urls", (req, res) => {
-    console.log("/urls session", req.session);
     let user_id = req.session["user_id"]
-    console.log(urlsForUser(user_id));
-    console.log("users", [user_id]);
     let templateVars = { urls: urlsForUser(user_id), user: users[user_id] };
     res.render("urls_index", templateVars);
 });
 app.get("/urls/new", (req, res) => {
     let templateVars = { user: users[req.session["user_id"]] };
-    console.log(templateVars)
     res.render("urls_new", templateVars);
 });
 app.get("/urls/:shortURL", (req, res) => {
@@ -104,7 +98,7 @@ app.get("/urls/:shortURL", (req, res) => {
     };
     res.render("urls_show", templateVars);
 });
-app.post("/urls", (req, res) => {
+app.post("/urls", (req, res) => {                       //
     var shortUrl = generateRandomString()
     var longURL = req.body.longURL
     if (req.session.user_id) {
@@ -115,9 +109,7 @@ app.post("/urls", (req, res) => {
     } else {
         res.status(400).send("Please Login");
     }   
-    console.log("SESSSSSSSION", req.session.user_id)
-    console.log(urlDatabase);                 // Log the POST request body to the console
-    res.redirect("/urls");         // Respond with 'Ok' (we will replace this)
+    res.redirect("/urls");                         // Log the POST request body to the console        // Respond with 'Ok' (we will replace this)
 });
 app.get("/u/:shortURL", (req, res) => {
     var longURL = urlDatabase[req.params.shortURL].longURL             //post updates long url
@@ -125,17 +117,13 @@ app.get("/u/:shortURL", (req, res) => {
 });
 app.post("/urls/:shortURL/delete", (req, res) => {
     let shortURL = urlDatabase[req.params.shortURL]
-    let userID = urlDatabase[req.params.shortURL].userID
-    console.log("userID")
     if (shortURL.userID === req.session.user_id) {
-    
         delete urlDatabase[req.params.shortURL];
     }
     res.redirect("/urls");
 });
 app.post("/urls/:shortURL", (req, res) => {
     var shortUrl = generateRandomString()
-    console.log("updatesession", req.session)
     var longURL = req.body.longURL               //post updates long url
     urlDatabase[shortUrl] = {
         longURL: longURL,
@@ -143,16 +131,12 @@ app.post("/urls/:shortURL", (req, res) => {
     }
     res.redirect("/urls");
 });
-app.post("/login", (req, res) => {
+app.post("/login", (req, res) => {      //post checks if user is registered and will allow login or send an error message
     const email = req.body.email;
     const password = req.body.password;
     for (let userID in users) {
-        console.log("HELLLOOO", users[userID])
             if (email === users[userID].email && bcrypt.compareSync(password, users[userID].password)) {
-                // req.session.user_id = userID;
-                console.log("HELLLOOO", userID)
-                req.session.user_id = userID;
-                console.log("session", req.session)
+                req.session.user_id = userID
                 res.redirect("/urls")
             } else {
                 res.status(400).send("Invalid User");
@@ -161,16 +145,14 @@ app.post("/login", (req, res) => {
         }
        
 });
-app.post("/register", (req, res) => {
+app.post("/register", (req, res) => {               //post for registration, checks if user has already been created sends an error or allows to create user
     const userId = generateRandomString()
     const email = req.body.email
     const password = req.body.password
-    console.log(password)
     const hashedPassword = bcrypt.hashSync(password, 10);
-    console.log(hashedPassword)
+    
 
     if (!email || lookUpUser(email)) {
-        console.log("already registered")
         res.status(400).send()
     } else {
 
@@ -180,9 +162,8 @@ app.post("/register", (req, res) => {
             password: hashedPassword,
         }
     
-        console.log(users[userId]);
+        
         req.session.user_id = userId;
-        console.log(userId)
         res.redirect("/urls");
     }
 });
