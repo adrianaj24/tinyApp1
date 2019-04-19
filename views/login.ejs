@@ -14,21 +14,18 @@
         TINY APP
     </h1>
     <a href="/login">Login</a> | <a href="/register">Register</a>
-    <p>Login</p>
-    <% if(user){ %>
-    <p> Logged in as: <%=user.email%> </p>
-    <form action="/logout" method="POST">
-        <input type="submit" value="Sign Out" class="btn btn-primary" />
-    </form>
+    <% if(user) { %>
+        <p> Logged in as: <%=user.email%> </p>
+        <form action="/logout" method="POST">
+            <input type="submit" value="Sign Out" class="btn btn-primary" />
+        </form>
     <% } else { %>
-    <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit" class="btn btn-success">Login</button>
-    </form>
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email" />
+            <input type="password" name="password" placeholder="Password" />
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
     <% } %>
-
-
-
+    
 </body>
 </html>

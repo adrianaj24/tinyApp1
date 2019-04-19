@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,25 +9,21 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <title>TinyApp</title>
 </head>
+<body style="font-size:20px; padding:50px;">
+    <% include partials/_header %>
 
-    <body style="font-size:20px; padding:50px;">
-        <% include partials/_header %>
+    <ul>
+        <% for (url in urls) { %>
+            <li>
 
-            <ul>
-            <% for (url in urls) { %>
-                <li>
-
-                <form class="form-inline" method="POST" action=<%= `/urls/${url}/delete` %> >
-                    
-                    
-            <%= url %> - <%= urls[url].longURL %>
-            <input type="submit" value="Delete" class="btn btn-primary" style="margin: 1em">
-            </form>
-            <a href="/urls/<%= url %>" >Edit</a>
+                <form class="form-inline" method="POST" action="<%= `/urls/${url}/delete` %>" >
+                    <a href="u/<%= url %>"><%= url %></a> - <%= urls[url].longURL %>
+                    <input type="submit" value="Delete" class="btn btn-primary" style="margin: 1em">
+                </form>
+                <a href="/urls/<%= url %>" >Edit</a>
             </li>
-            <% } %>
-            </ul>
-    
-    </body>
+        <% } %>
+    </ul>
 
-    </html>
+</body>
+</html>

@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html>
+<header>
+    <h1>TINYAPP</h1>
+    <% if(user){ %>
+        <a href="/urls">URLs</a> | <a href="/urls/new">Create New TinyURL</a>
+        <p> Logged in as: <%=user.email%> </p>
+        <form action="/logout" method="POST">
+            <input type="submit" value="Sign Out" class="btn btn-primary" />
+        </form>
+    <% } else { %>
+        <a href="/login">Login</a> | <a href="/register">Register</a>
+        <div>PLEASE LOGIN TO CREATE A TINYURL</div>
+    <% } %> 
 
-<body>
-
-    <article>
-        <header>
-            <h1>TINYAPP</h1>
-                <% if(user){ %>
-                <a href="/urls">URLs</a> | <a href="/urls/new">Create New TinyURL</a>
-                <p> Logged in as: <%=user.email%> </p>
-                <form action="/logout" method="POST">
-                    <input type="submit" value="Sign Out" class="btn btn-primary" />
-                </form>
-                <% } else { %>
-                    <a href="/login">Login</a> | <a href="/register">Register</a>
-                <% } %> 
- 
-        </header>
-    </article>
-
-</body>
-
-</html>
+</header>
