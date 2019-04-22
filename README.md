@@ -20,10 +20,10 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product 
 
-! "Screenshot of main page" https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%204.09.25%20PM.png
+! [Screenshot of main page] (https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%204.09.25%20PM.png)
 
 
-! "Screenshot of Logged in User" https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%202.18.42%20PM.png
+! [Screenshot of Logged in User"] (https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%202.18.42%20PM.png)
 
-! "Screenshot of new url page" https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%204.26.17%20PM.png
+! [Screenshot of new url page"] (https://github.com/adrianaj24/tinyApp1/blob/master/pics/Screen%20Shot%202019-04-19%20at%204.26.17%20PM.png)
 
